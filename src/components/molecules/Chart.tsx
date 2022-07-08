@@ -1,10 +1,12 @@
+/* eslint-disable react/function-component-definition */
 import * as React from 'react'
+import { Paper } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import {
   Label, Line, LineChart, ResponsiveContainer, XAxis, YAxis
 } from 'recharts'
 
-import Title from './Title'
+import { Title } from '../atoms/Text'
 
 // Generate Sales Data
 function createData(time: string, amount?: number) {
@@ -23,12 +25,28 @@ const data = [
   createData('24:00', undefined),
 ]
 
-export default function Chart() {
+type Props = {
+  title: string,
+}
+
+const Chart: React.FC<Props> = ({
+  title
+}) => {
   const theme = useTheme()
 
   return (
-    <>
-      <Title>Today</Title>
+    <Paper
+      sx={{
+        p: 2,
+        bgcolor: '#fff',
+        display: 'flex',
+        borderRadius: 3,
+        flexDirection: 'column',
+        height: 300,
+        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+      }}
+    >
+      <Title text={title} sx={{ fontSize: '1.3rem' }} />
       <ResponsiveContainer>
         <LineChart
           data={data}
@@ -53,6 +71,7 @@ export default function Chart() {
               position="left"
               style={{
                 textAnchor: 'middle',
+                fontFamily: 'Poppins',
                 fill: theme.palette.text.primary,
                 ...theme.typography.body1,
               }}
@@ -69,6 +88,8 @@ export default function Chart() {
           />
         </LineChart>
       </ResponsiveContainer>
-    </>
+    </Paper>
   )
 }
+
+export default Chart

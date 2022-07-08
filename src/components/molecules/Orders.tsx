@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Card } from '@mui/material'
 import Link from '@mui/material/Link'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -6,9 +7,8 @@ import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
-import Title from './Title'
+import { Title } from '../atoms/Text'
 
-// Generate Order Data
 function createData(
   id: number,
   date: string,
@@ -58,22 +58,27 @@ const rows = [
   ),
 ]
 
-function preventDefault(event: React.MouseEvent) {
-  event.preventDefault()
-}
+const cells = [
+  'Date', 'Name', 'Ship to', 'Payment Method', 'Sale Amount'
+]
 
-export default function Orders() {
+function Orders() {
   return (
-    <>
-      <Title>Recent Orders</Title>
+    <Card sx={{
+      p: 2,
+      display: 'flex',
+      flexDirection: 'column',
+      borderRadius: 3,
+      boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+    }}
+    >
+      <Title text="Recent Orders" sx={{ fontSize: '1.3rem' }} />
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Ship To</TableCell>
-            <TableCell>Payment Method</TableCell>
-            <TableCell align="right">Sale Amount</TableCell>
+            {cells.map((i) => (
+              <TableCell sx={{ fontWeight: 700 }}>{i}</TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -88,9 +93,16 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="/dashboard" onClick={preventDefault} sx={{ mt: 3 }}>
+      <Link
+        color="primary"
+        href="/listing"
+        onClick={(event) => event.preventDefault()}
+        sx={{ mt: 3, textDecoration: 'none', fontSize: '0.9rem' }}
+      >
         See more orders
       </Link>
-    </>
+    </Card>
   )
 }
+
+export default Orders

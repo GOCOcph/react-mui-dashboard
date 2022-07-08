@@ -14,6 +14,7 @@ export default function RootRouter() {
     <Router>
       <Route element={<Login />} path="/login" />
       <Route element={<Dashboard />} path="/dashboard" />
+      <Route element={<Dashboard />} path="/*" />
       <Route element={<Listing />} path="/listing" />
       <Route element={<SignUp />} path="/sign-up" />
     </Router>
